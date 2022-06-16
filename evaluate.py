@@ -1,9 +1,4 @@
-import tensorflow as tf
-import PIL
 import pandas as pd
-import numpy as np
-import tensorflow_datasets as tfds
-import scipy
 import os
 import matplotlib.pyplot as plt
 
@@ -13,7 +8,7 @@ def model_diagnostics(history):
     Function to show accuracy and loss of training and validation.
     """
     # plot accuracy
-    plt.figure(figsize=(10, 10))
+    plt.figure(figsize=(7, 15))
     plt.subplot(211)
     plt.title('Accuracy')
     plt.plot(history['sparse_categorical_accuracy'], color='blue', label='training')
