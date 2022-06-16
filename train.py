@@ -67,7 +67,13 @@ def get_data():
     :return: prefetch train dataset, prefetch validation dataset, dataset info
     """
     # extract datasets
-    (train_ds, val_ds), info_ds = tfds.load('mnist', as_supervised=True, split=['train', 'test'], with_info=True)
+    (train_ds, val_ds), info_ds = tfds.load(
+        'mnist',
+        as_supervised=True,
+        split=['train', 'test'],
+        with_info=True,
+        shuffle_files=True,
+    )
 
     # transform datasets
     preprocessed_train_ds = train_ds.map(normalize_image, num_parallel_calls=tf.data.AUTOTUNE).cache()
