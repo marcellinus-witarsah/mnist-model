@@ -99,38 +99,21 @@ def get_cnn_model(input_shape):
     model = tf.keras.models.Sequential(
         [
             tf.keras.layers.Conv2D(
-                filters=8,
+                filters=16,
                 input_shape=input_shape,
                 kernel_size=(3, 3),
-                padding='same',
                 activation=tf.nn.relu
             ),
-            tf.keras.layers.BatchNormalization(),
             tf.keras.layers.MaxPool2D(
-                pool_size=(3, 3),
-                padding='same'
-            ),
-            tf.keras.layers.Conv2D(
-                filters=16,
-                kernel_size=(3, 3),
-                padding='same',
-                activation=tf.nn.relu
-            ),
-            tf.keras.layers.BatchNormalization(),
-            tf.keras.layers.MaxPool2D(
-                pool_size=(3, 3),
-                padding='same'
+                pool_size=(2, 2),
             ),
             tf.keras.layers.Conv2D(
                 filters=32,
                 kernel_size=(3, 3),
-                padding='same',
                 activation=tf.nn.relu
             ),
-            tf.keras.layers.BatchNormalization(),
             tf.keras.layers.MaxPool2D(
-                pool_size=(3, 3),
-                padding='same'
+                pool_size=(2, 2),
             ),
             tf.keras.layers.Flatten(),
             tf.keras.layers.Dense(units=64, activation=tf.nn.relu),
@@ -156,7 +139,7 @@ if __name__ == '__main__':
     # COMPILE MODEL
     model.compile(
         optimizer=tf.keras.optimizers.Adam(0.0001),
-        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(),
         metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
     )
 
@@ -175,6 +158,7 @@ if __name__ == '__main__':
         get_model_checkpoint(os.path.join(folder_path, 'model'), monitor='val_sparse_categorical_accuracy', mode='max'),
         get_early_stopping(monitor='val_loss', patience=5)
     ]
+
     history = model.fit(
         ds_train,
         epochs=50,

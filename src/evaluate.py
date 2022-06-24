@@ -29,7 +29,7 @@ def model_diagnostics(history):
 
 
 if __name__ == "__main__":
-    history_csv_path = os.path.join(os.getcwd(), 'best_1', 'history.csv')
+    history_csv_path = os.path.join(os.getcwd(), '../best_1', 'history.csv')
     with open(history_csv_path, 'r') as f:
         history_pd = pd.read_csv(f)
     print(history_pd)
