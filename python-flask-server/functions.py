@@ -2,6 +2,7 @@ from turtle import width
 import tensorflow as tf
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def prepare_model (path):
@@ -30,6 +31,8 @@ def preprocess_data(img_arr, model_width, model_height):
     # resize into model input size 
     model_input_dim = (model_width, model_height)
     resized_img_arr = cv2.resize(normalize_img_arr, model_input_dim, interpolation=cv2.INTER_AREA)
+    plt.imshow(resized_img_arr, cmap="Greys")
+    plt.show()
     return resized_img_arr
 
 

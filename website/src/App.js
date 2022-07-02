@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Button, Container, Navbar, Stack } from "react-bootstrap";
+import { Button, Col, Container, Navbar, Row, Stack } from "react-bootstrap";
 import "./App.css";
 import { HTTP_REQUEST_URL, WEBSITE_URL } from "./constants";
 import * as tf from "@tensorflow/tfjs";
@@ -15,8 +15,10 @@ function App() {
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    canvas.width = window.innerWidth / 4;
-    canvas.height = window.innerWidth / 4;
+    // canvas.width = window.innerWidth / 4;
+    // canvas.height = window.innerWidth / 4;
+    canvas.width = 224;
+    canvas.height = 224;
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
     contextRef.current = context;
@@ -34,7 +36,7 @@ function App() {
     contextRef.current.lineCap = "round";
     contextRef.current.lineJoin = "round";
     contextRef.current.strokeStyle = "black";
-    contextRef.current.lineWidth = 20;
+    contextRef.current.lineWidth = 15;
     setIsDrawing(true);
   };
 
@@ -119,30 +121,34 @@ function App() {
           </h1>
         </Container>
       </Navbar>
-      <Stack gap={4}>
-        <div className="d-flex justify-content-center">
-          <canvas
-            className="canvas-container bg-light shadow mb-5 bg-body rounded"
-            onMouseDown={startDrawing}
-            onMouseUp={stopDrawing}
-            onMouseMove={draw}
-            ref={canvasRef}
-          ></canvas>
-        </div>
-        <div className="d-flex justify-content-center">
-          <Button variant="primary" onClick={predictImage}>
-            Predict
-          </Button>
-        </div>
-        <div className="d-flex justify-content-center">
-          <Button variant="warning" onClick={clearCanvas}>
-            Clear
-          </Button>
-        </div>
-        <div className="d-flex justify-content-center">
-          <h2>{result ? "Result : " + result : "No Data has been Input"}</h2>
-        </div>
-      </Stack>
+      <Row className="p-md-3">
+        <Col>
+          <Stack gap={4}>
+            <div className="d-flex justify-content-center">
+              <canvas
+                className="canvas-container bg-light shadow mb-5 bg-body rounded"
+                onMouseDown={startDrawing}
+                onMouseUp={stopDrawing}
+                onMouseMove={draw}
+                ref={canvasRef}
+              ></canvas>
+            </div>
+            <div className="d-flex justify-content-center gap-5">
+              <Button variant="primary" onClick={predictImage}>
+                Predict
+              </Button>
+              <Button variant="warning" onClick={clearCanvas}>
+                Clear
+              </Button>
+            </div>
+          </Stack>
+        </Col>
+        <Col>
+          <div className="d-flex justify-content-center">
+            <h2>{result ? "Result : " + result : "No Data has been Input"}</h2>
+          </div>
+        </Col>
+      </Row>
     </>
   );
 }
