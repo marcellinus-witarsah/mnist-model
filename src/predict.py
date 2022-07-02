@@ -21,7 +21,3 @@ if __name__ == '__main__':
         plt.imshow(img, cmap="Greys")
         plt.show()
 
-    # print(model.summary())
-    # result = model.predict(img_array)
-    # print(np.argmax(result))
-
